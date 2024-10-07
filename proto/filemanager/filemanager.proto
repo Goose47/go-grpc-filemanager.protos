@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package filemanager;
+option go_package = "https://github.com/Goose47/go-grpc-filemanager.protos;gen";
+
+service FileManager {
+  // Upload uploads file to server
+  rpc Upload(stream UploadRequest) returns (UploadResponse);
+  // List returns all uploaded files
+  rpc List(ListRequest) returns (ListResponse);
+  // File retrieves file from server
+  rpc File(FileRequest) returns (stream FileResponse);
+}
+
+message UploadRequest {
+  bytes chunk = 1; // File chunk
+}
+
+message UploadResponse {
+  string filename = 1; // Name of saved file
+}
+
+message ListRequest {}
+
+message FileInfo {
+  string filename = 1;          // File name
+  string creation_date = 2;     // Timestamp of when file was created
+  string update_date = 3;       // Timestamp of last time file was updated
+}
+
+message ListResponse {
+  repeated FileInfo files = 1;  // Uploaded files list
+}
+
+message FileRequest {
+  string filename = 1; // Name of file to download
+}
+
+message FileResponse {
+  bytes chunk = 1; // File chunk
+}
