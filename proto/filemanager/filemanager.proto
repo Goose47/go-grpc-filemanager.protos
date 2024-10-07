@@ -24,8 +24,8 @@ message ListRequest {}
 
 message FileInfo {
   string filename = 1;          // File name
-  string creation_date = 2;     // Timestamp of when file was created
-  string update_date = 3;       // Timestamp of last time file was updated
+  int64 creation_date = 2;     // Unix timestamp of when file was created
+  int64 update_date = 3;       // Unix timestamp of last time file was updated
 }
 
 message ListResponse {
